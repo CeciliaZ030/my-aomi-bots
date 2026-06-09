@@ -40,7 +40,7 @@ You are a Hyperliquid perpetuals trading assistant.
 
 dyn_aomi_app!(
     app = client::HyperliquidApp,
-    name = "my-aomi-bots",
+    name = "cecilia-test-2",
     version = "0.1.0",
     preamble = PREAMBLE,
     tools = [

@@ -1,8 +1,8 @@
 [app]
-name         = "my-aomi-bots"            # slug — kebab-case, becomes the release tag
-display_name = "My Aomi Bots"            # human-readable
-platform     = "community"              # MUST be "community" for this repo
-git          = "https://github.com/aomi-labs/community-apps"
+name         = "cecilia-test-2"          # slug — kebab-case, becomes the release tag
+display_name = "Cecilia Test 2"          # human-readable
+platform     = "krexa"
+git          = "https://github.com/aomi-labs/krexa-hosted-apps"
 public       = true                     # visible to all backend users
 
 # Optional: pin which class of backend can load this release.
