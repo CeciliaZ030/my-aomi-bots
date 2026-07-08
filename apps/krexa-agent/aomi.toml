@@ -6,3 +6,5 @@ git          = "https://github.com/aomi-labs/krexa-hosted-apps"
 public       = true
 
 # redeploy after CI staging-bot allowlist fix (krexa-hosted-apps#10)
+
+# redeploy after CI aligned to community pipeline (krexa-hosted-apps#12)
