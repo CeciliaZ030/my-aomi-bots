@@ -8,9 +8,9 @@ edition = "2024"
 crate-type = ["cdylib"]
 
 [dependencies]
-# Pin EXACTLY to platform.json's required_sdk_version. Bundle validation in CI
-# refuses any mismatch — even patch versions.
-aomi-sdk   = "=0.1.20"
+# Pin exactly to the SDK version required by the Aomi backend. Bundle
+# validation refuses any mismatch, including patch versions.
+aomi-sdk   = "=3.1.0"
 schemars   = "1"
 serde      = { version = "1", features = ["derive"] }
 serde_json = "1"
