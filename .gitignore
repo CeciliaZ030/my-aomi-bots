@@ -1,3 +1,4 @@
 /target
-/.aomi/
+/.aomi/*
+!/.aomi/config.json
 Cargo.lock

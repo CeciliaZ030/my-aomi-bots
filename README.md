@@ -23,34 +23,42 @@ before wiring real trades.
 
 ```
 my-aomi-bots/
-├── aomi.toml         # platform manifest — slug, platform, target_tags
-├── Cargo.toml        # cdylib + aomi-sdk pinned to platform.json's required_sdk_version
+├── .aomi/
+│   └── config.json  # V2 project configuration — platform + app manifests
+├── aomi.toml         # application manifest — slug, visibility, server tags
+├── Cargo.toml        # cdylib + aomi-sdk pinned to the backend-required version
 ├── src/
 │   ├── lib.rs        # dyn_aomi_app! registration + preamble
 │   ├── client.rs     # HTTP client, Trader scaffold, arg structs, action builders
 │   └── tools.rs      # one impl DynAomiTool per tool
-└── .gitignore        # /target, /.aomi/, Cargo.lock
+└── .gitignore        # /target, local deployment state, Cargo.lock
 ```
 
 ## Publishing
 
-Authoring lives here; publishing goes through the `aomi-git` CLI.
+Authoring lives here; project creation and deployment go through `aomi-build`.
 
 ```bash
 # 1. Compile check
 cargo check
 
-# 2. Dry-run preflight against staging
-AOMI_BACKEND_URL=https://staging-api.aomi.dev \
-  aomi-git deploy --dry-run --preflight
+# 2. Create or validate the platform-bound V2 Project
+aomi-build project create \
+  --repo CeciliaZ030/my-aomi-bots \
+  --platform community
 
-# 3. Stage + push to the community publish repo
-aomi-git deploy --platform-repo-dir /path/to/community-apps
+# 3. Commit and push .aomi/config.json before deploying
+git add .aomi/config.json Cargo.toml aomi.toml
+git commit -m "Configure Aomi project"
+git push
+
+# 4. Deploy, activate, and verify the app
+aomi-build deploy
+aomi-build deploy status
 ```
 
-CI builds the cdylib and uploads a release tarball. Activation against the
-backend is held by the community platform operator — ping them with the
-release tag once CI is green.
+The backend relays the pushed source revision to the community platform,
+waits for its release, activates it, and verifies that the runtime loaded it.
 
 See [`community-apps/CONTRIBUTING.md`](https://github.com/aomi-labs/community-apps/blob/main/CONTRIBUTING.md)
 for the full pipeline walkthrough.
